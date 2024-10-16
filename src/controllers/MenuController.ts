@@ -1,28 +1,15 @@
 import { FilmeModel } from "../models/FilmeModel";
+import { logo } from "../utils/menu";
 
 export class MenuController {
   private filmeModel = new FilmeModel();
 
-  showMainMenu() {
+  mostrarMenu() {
     console.log(`
-╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗
-╠╬╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╬╣
-╠╣                                                                      ╠╣
-╠╣    █████████   ███                           █████████   ████  ████  ╠╣
-╠╣   ███░░░░░███ ░░░                           ███░░░░░███ ░░███ ░░███  ╠╣
-╠╣  ███     ░░░  ████  ████████    ██████     ░███    ░███  ░███  ░███  ╠╣
-╠╣ ░███         ░░███ ░░███░░███  ███░░███    ░███████████  ░███  ░███  ╠╣
-╠╣ ░███          ░███  ░███ ░███ ░███████     ░███░░░░░███  ░███  ░███  ╠╣
-╠╣ ░░███     ███ ░███  ░███ ░███ ░███░░░      ░███    ░███  ░███  ░███  ╠╣
-╠╣  ░░█████████  █████ ████ █████░░██████     █████   █████ █████ █████ ╠╣
-╠╣   ░░░░░░░░░  ░░░░░ ░░░░ ░░░░░  ░░░░░░     ░░░░░   ░░░░░ ░░░░░ ░░░░░  ╠╣
-╠╣                                                                      ╠╣
-╠╬╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╬╣
-╚╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╩╝
+${logo}
 
 \n SISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA\n
-
-    \n ESCOLHA UMA OPÇÃO: \n
+    ESCOLHA UMA OPÇÃO: \n
 
     1 - RELATÓRIOS
     2 - INSERIR REGISTROS
@@ -35,35 +22,44 @@ export class MenuController {
     const filmesQtd = await this.filmeModel.count();
 
     console.log(`
-\n SISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA\n  
+======================================================================================================
+\nSISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA
+\nTOTAL DE REGISTROS EXISTENTES:
 
-\n TOTAL DE REGISTROS EXISTENTES:
+  1 - CLIENTES:
+  2 - FILMES: ${filmesQtd}
+  3 - INGRESSOS:
+  4 - SALAS:
+  5 - SESSÕES:\n
+CRIADO POR:
+  ALANA 
+  LUIZ 
+  JULIANA
+  JOÃO VICTOR
+  PATRICK
 
-1 - CLIENTES:
-2 - FILMES: ${filmesQtd}
-3 - INGRESSOS:
-4 - SALAS:
-5 - SESSÕES:
-
-\n CRIADO POR:
-\n ALANA \n
-\n LUIZ \n
-\n JULIANA\n
-\n JOÃO VICTOR\n
-\n PATRICK\n
-
-\n DISCIPLINA: BANCO DE DADOS - 2024/2\n
-\n PROFESSOR: HOWARD ROATTI\n`);
+DISCIPLINA: BANCO DE DADOS - 2024/2
+PROFESSOR: HOWARD ROATTI\n
+======================================================================================================`);
   }
 
-  async showSubMenu(type: number) {
+  async mostrarSubMenu(type: number) {
     switch (type) {
       case 1:
+        this.menuRelatorio();
         break;
       case 2:
         break;
       case 3:
         break;
     }
+  }
+
+  private menuRelatorio() {
+    console.log(`
+    1 - Ingressos Vendidos
+    2 - Sessões Atuais
+    3 - Voltar
+  `);
   }
 }

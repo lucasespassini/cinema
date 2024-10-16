@@ -12,13 +12,13 @@ const connection = mysql.createConnection({
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function executeQuery<T = any>(sql: string): Promise<T> {
-  const result: T = await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     connection.query(sql, (error, result) =>
-      error ? reject(error) : resolve(result as T)
+      error ? reject(error) : resolve(result?.[0])
     );
   });
 
-  return result;
+  return result as T;
 }
 
 export async function connectDb() {
