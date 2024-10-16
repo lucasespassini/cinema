@@ -1,6 +1,7 @@
 import mysql from "mysql2";
+import { readFileSync } from "node:fs";
 
-export const connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: process.env.HOST,
   port: process.env.PORT ? +process.env.PORT : 3306,
   user: process.env.USER,
@@ -18,4 +19,25 @@ export async function executeQuery<T = any>(sql: string): Promise<T> {
   });
 
   return result;
+}
+
+export async function connectDb() {
+  connection.connect();
+
+  const createTablesSQL = readFileSync("sql/create-tables.sql", "utf-8");
+  const populateTablesSQL = readFileSync("sql/populate-tables.sql", "utf-8");
+  const createTriggersSQL = readFileSync("sql/create-triggers.sql", "utf-8");
+  const createProceduresSQL = readFileSync(
+    "./sql/create-procedures.sql",
+    "utf-8"
+  );
+
+  await executeQuery(createTablesSQL);
+  await executeQuery(populateTablesSQL);
+  await executeQuery(createTriggersSQL);
+  await executeQuery(createProceduresSQL);
+}
+
+export function disconnectDb() {
+  connection.end();
 }
