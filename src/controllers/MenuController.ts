@@ -56,7 +56,7 @@ export class MenuController {
 \n PROFESSOR: HOWARD ROATTI\n`);
   }
 
-  showSubMenu(type: number) {
+  async showSubMenu(type: number) {
     switch (type) {
       case 1:
         break;

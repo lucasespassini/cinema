@@ -1,11 +1,10 @@
-import { FilmeController } from "./controllers/FilmeController";
 import { MenuController } from "./controllers/MenuController";
-import { connection } from "./database/connection";
+import { connectDb, disconnectDb } from "./database/connection";
 import { scan } from "./utils/scan";
 
 const main = async () => {
+  await connectDb();
   const menuController = new MenuController();
-  const filmeController = new FilmeController();
 
   let opt = "";
 
@@ -18,7 +17,7 @@ const main = async () => {
         menuController.showSubMenu(+opt);
         break;
       case "5":
-        connection.end();
+        disconnectDb();
         break;
       default:
         console.log("Opção inválida!!!");
