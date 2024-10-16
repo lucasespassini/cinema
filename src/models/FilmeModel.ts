@@ -17,7 +17,17 @@ export class FilmeModel {
     return await executeQuery<number>(sql);
   }
 
-  update() {}
+  async update(titulo: string, duracao: string, genero: string, id: number) {
+    const sql = `
+    UPDATE filmes
+    SET titulo = '${titulo}',
+        duracao = '${duracao}',
+        genero = '${genero}'
+    WHERE id = ${id}; 
+`;
+    await executeQuery(sql);
+    console.log("Filme atualizado com sucesso!");
+  }
 
   delete() {}
 }
