@@ -1,8 +1,9 @@
 import { FilmeModel } from "../models/FilmeModel";
 import { logo } from "../utils/menu";
+import { scan } from "../utils/scan";
 
 export class MenuController {
-  private filmeModel = new FilmeModel();
+  private readonly filmeModel = new FilmeModel();
 
   mostrarMenu() {
     console.log(`
@@ -49,8 +50,10 @@ PROFESSOR: HOWARD ROATTI\n
         this.menuRelatorio();
         break;
       case 2:
+        this.menuTabelas();
         break;
       case 3:
+        this.menuRelatorio();
         break;
     }
   }
@@ -61,5 +64,29 @@ PROFESSOR: HOWARD ROATTI\n
     2 - Sessões Atuais
     3 - Voltar
   `);
+
+    const opt = +scan(">>> ");
+
+    switch (opt) {
+      case 1:
+        console.log("mostar relatorio Ingressos Vendidos");
+        break;
+      case 2:
+        console.log("mostar relatorio Sessões Atuais");
+        break;
+      case 3:
+        break;
+    }
+  }
+
+  private menuTabelas() {
+    console.log(`
+      1 - Cliente
+      2 - Filme
+      3 - Ingresso
+      4 - Salas
+      5 - Sessao
+      6 - Voltar 
+    `);
   }
 }
