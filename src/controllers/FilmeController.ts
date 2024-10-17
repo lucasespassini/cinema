@@ -2,29 +2,31 @@ import { FilmeModel } from "../models/FilmeModel";
 import { scan } from "../utils/scan";
 
 export class FilmeController {
-  private readonly filmeModel = new FilmeModel();
-
   async inserir() {
     const titulo = scan("Titulo do filme: ");
-    const duracao = scan("Duração do filme: ");
+    const duracao = +scan("Duração do filme: ");
     const genero = scan("Gênero do filme(Ex: Terror): ");
 
-    await this.filmeModel.create(titulo, +duracao, genero);
+    const novoFilme = new FilmeModel({ titulo, duracao, genero });
+
+    await FilmeModel.create(novoFilme);
   }
 
   async listar() {
-    const result = await this.filmeModel.read();
+    const result = await FilmeModel.read();
     console.table(result);
     scan("Aperte a tecla Enter para continuar >>>");
   }
 
   async atualizar() {
-    const id = scan("Atualizar pelo Id do filme: ");
+    const id = +scan("Atualizar pelo Id do filme: ");
     const titulo = scan("Titulo do filme: ");
-    const duracao = scan("Duração do filme: ");
+    const duracao = +scan("Duração do filme: ");
     const genero = scan("Gênero do filme: ");
 
-    await this.filmeModel.update(titulo, duracao, genero, +id);
+    const filmeAtualizado = new FilmeModel({ id, titulo, duracao, genero });
+
+    await FilmeModel.update(filmeAtualizado);
   }
 
   async excluir() {

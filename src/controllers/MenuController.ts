@@ -1,3 +1,4 @@
+import { ClienteModel } from "../models/ClienteModel";
 import { FilmeModel } from "../models/FilmeModel";
 import { IngressoModel } from "../models/IngressoModel";
 import { logo } from "../utils/menu";
@@ -10,8 +11,6 @@ import { SessaoController } from "./SessaoController";
 export class MenuController {
   private readonly filmeController = new FilmeController();
   private readonly clienteController = new ClienteController();
-  private readonly filmeModel = new FilmeModel();
-  private readonly ingressoModel = new IngressoModel();
   private readonly ingressoController = new IngressoController();
   private readonly sessaoController = new SessaoController();
 
@@ -30,15 +29,16 @@ ${logo}
   }
 
   async splashScreen() {
-    const filmesQtd = await this.filmeModel.count();
-    const ingressosQtd = await this.ingressoModel.count();
+    const clientesQtd = await ClienteModel.count();
+    const filmesQtd = await FilmeModel.count();
+    const ingressosQtd = await IngressoModel.count();
 
     console.log(`
 ======================================================================================================
 \nSISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA
 \nTOTAL DE REGISTROS EXISTENTES:
 
-  1 - CLIENTES:
+  1 - CLIENTES: ${clientesQtd}
   2 - FILMES: ${filmesQtd}
   3 - INGRESSOS: ${ingressosQtd}
   4 - SALAS:
@@ -62,12 +62,13 @@ PROFESSOR: HOWARD ROATTI\n
         this.menuRelatorio();
         break;
       case 2:
-        this.menuTabelas();
+        this.menuTabelas("CRIAR");
         break;
       case 3:
-        this.menuRelatorio();
+        this.menuTabelas("DELETAR");
         break;
       case 4:
+        this.menuTabelas("ATUALIZAR");
         break;
     }
   }
@@ -93,9 +94,9 @@ PROFESSOR: HOWARD ROATTI\n
   }
   1;
 
-  private async menuTabelas() {
+  private async menuTabelas(acao: "CRIAR" | "ATUALIZAR" | "DELETAR") {
     console.log(`
-      1 - Cliente
+      ${acao !== "ATUALIZAR" ? "1 - Cliente" : ""}
       2 - Filme
       3 - Ingresso
       4 - Sessao
@@ -106,10 +107,20 @@ PROFESSOR: HOWARD ROATTI\n
 
     switch (opt) {
       case 1:
-        await this.clienteController.inserir();
+        if (acao === "CRIAR") {
+          await this.clienteController.inserir();
+        } else if (acao === "DELETAR") {
+          await this.clienteController.excluir();
+        }
         break;
       case 2:
-        await this.filmeController.inserir();
+        if (acao === "CRIAR") {
+          await this.filmeController.inserir();
+        } else if (acao === "DELETAR") {
+          await this.filmeController.excluir();
+        } else if (acao === "ATUALIZAR") {
+          await this.filmeController.atualizar();
+        }
         break;
       case 3:
         await this.ingressoController.inserir();

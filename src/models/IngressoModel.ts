@@ -1,20 +1,36 @@
 import { executeQuery } from "../database/connection";
 
-export class IngressoModel {
-  async create(sessao_id: number, poltrona_id: number, cpf_cliente: string) {
-    const sql = `INSERT INTO ingressos (sessao_id, poltrona_id, cpf_cliente) VALUES ("${sessao_id}", ${poltrona_id}, "${cpf_cliente}");`;
+type IngressoModelProps = {
+  id?: number;
+  sessao_id: number;
+  poltrona_id: number;
+  cpf_cliente: string;
+};
+
+export class IngressoModel implements IngressoModelProps {
+  id?: number;
+  sessao_id: number;
+  poltrona_id: number;
+  cpf_cliente: string;
+
+  constructor(props: IngressoModelProps) {
+    Object.assign(this, props);
+  }
+
+  static async create(ingresso: Omit<IngressoModel, "id">) {
+    const sql = `INSERT INTO ingressos (sessao_id, poltrona_id, cpf_cliente) VALUES ("${ingresso.sessao_id}", ${ingresso.poltrona_id}, "${ingresso.cpf_cliente}");`;
     await executeQuery(sql);
     console.log("Ingresso vendido com sucesso!");
   }
 
-  async read() {
+  static async read() {
     const sql = "SELECT * FROM ingressos;";
     return await executeQuery(sql);
   }
 
-  async count() {
+  static async count() {
     const sql = "SELECT COUNT(*) AS ingressosQtd FROM ingressos;";
-    const ingressosQtd = await executeQuery<{ filmesQtd: number }>(sql);
+    const ingressosQtd = await executeQuery<{ ingressosQtd: number }[]>(sql);
     return ingressosQtd[0].ingressosQtd;
   }
 }

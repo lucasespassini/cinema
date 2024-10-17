@@ -22,13 +22,23 @@ export class ClienteModel implements ClienteModelProps {
     console.log("\nCliente cadastrado com sucesso!!!\n");
   }
 
+  static async count() {
+    const sql = "SELECT COUNT(*) AS clienteQtd FROM cliente";
+    const result = await executeQuery<{ clienteQtd: number }[]>(sql);
+    return result[0].clienteQtd;
+  }
+
   static async findByCpf(cpf: string) {
     const sql = `SELECT * FROM cliente WHERE cpf = "${cpf}"`;
     const cliente = await executeQuery<ClienteModel[]>(sql);
     return cliente[0];
   }
 
-  static async read() {}
+  static async read() {
+    const sql = "SELECT * FROM cliente";
+    const clientes = await executeQuery<ClienteModel[]>(sql);
+    return clientes;
+  }
 
   static async delete(cpf: string) {
     const sql = `DELETE FROM cliente WHERE cpf = "${cpf}"`;
