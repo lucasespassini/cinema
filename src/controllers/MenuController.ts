@@ -1,22 +1,24 @@
 import { FilmeModel } from "../models/FilmeModel";
 import { logo } from "../utils/menu";
 import { scan } from "../utils/scan";
+import { FilmeController } from "./FilmeController";
 
 export class MenuController {
   private readonly filmeModel = new FilmeModel();
+  private readonly filmeController = new FilmeController();
 
   mostrarMenu() {
     console.log(`
 ${logo}
 
-\n SISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA\n
-    ESCOLHA UMA OPÇÃO: \n
+\nSISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA\n
+  ESCOLHA UMA OPÇÃO:
 
-    1 - RELATÓRIOS
-    2 - INSERIR REGISTROS
-    3 - REMOVER REGISTROS
-    4 - ATUALIZAR REGISTROS
-    5 - SAIR \n`);
+  1 - RELATÓRIOS
+  2 - INSERIR REGISTROS
+  3 - REMOVER REGISTROS
+  4 - ATUALIZAR REGISTROS
+  5 - SAIR \n`);
   }
 
   async splashScreen() {
@@ -79,7 +81,7 @@ PROFESSOR: HOWARD ROATTI\n
     }
   }
 
-  private menuTabelas() {
+  private async menuTabelas() {
     console.log(`
       1 - Cliente
       2 - Filme
@@ -88,5 +90,23 @@ PROFESSOR: HOWARD ROATTI\n
       5 - Sessao
       6 - Voltar 
     `);
+
+    const opt = +scan(">>> ");
+
+    switch (opt) {
+      case 1:
+        break;
+      case 2:
+        await this.filmeController.inserir();
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+    }
   }
 }

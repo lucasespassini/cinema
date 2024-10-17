@@ -9,7 +9,7 @@ export class FilmeController {
     const duracao = scan("Duração do filme: ");
     const genero = scan("Gênero do filme(Ex: Terror): ");
 
-    await this.filmeModel.create(titulo, duracao, genero);
+    await this.filmeModel.create(titulo, +duracao, genero);
   }
 
   async listar() {}
