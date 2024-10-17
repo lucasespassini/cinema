@@ -60,12 +60,13 @@ PROFESSOR: HOWARD ROATTI\n
         this.menuRelatorio();
         break;
       case 2:
-        this.menuTabelas();
+        this.menuTabelas("CRIAR");
         break;
       case 3:
-        this.menuRelatorio();
+        this.menuTabelas("DELETAR");
         break;
       case 4:
+        this.menuTabelas("ATUALIZAR");
         break;
     }
   }
@@ -91,9 +92,9 @@ PROFESSOR: HOWARD ROATTI\n
   }
   1;
 
-  private async menuTabelas() {
+  private async menuTabelas(acao: "CRIAR" | "ATUALIZAR" | "DELETAR") {
     console.log(`
-      1 - Cliente
+      ${acao !== "ATUALIZAR" ? "1 - Cliente" : ""}
       2 - Filme
       3 - Ingresso
       4 - Sessao
@@ -104,10 +105,20 @@ PROFESSOR: HOWARD ROATTI\n
 
     switch (opt) {
       case 1:
-        await this.clienteController.inserir();
+        if (acao === "CRIAR") {
+          await this.clienteController.inserir();
+        } else if (acao === "DELETAR") {
+          await this.clienteController.excluir();
+        }
         break;
       case 2:
-        await this.filmeController.inserir();
+        if (acao === "CRIAR") {
+          await this.filmeController.inserir();
+        } else if (acao === "DELETAR") {
+          await this.filmeController.excluir();
+        } else if (acao === "ATUALIZAR") {
+          await this.filmeController.atualizar();
+        }
         break;
       case 3:
         await this.ingressoController.inserir();
