@@ -1,11 +1,13 @@
 import { FilmeModel } from "../models/FilmeModel";
 import { logo } from "../utils/menu";
 import { scan } from "../utils/scan";
+import { ClienteController } from "./ClienteController";
 import { FilmeController } from "./FilmeController";
 
 export class MenuController {
-  private readonly filmeModel = new FilmeModel();
   private readonly filmeController = new FilmeController();
+  private readonly clienteController = new ClienteController();
+  private readonly filmeModel = new FilmeModel();
 
   mostrarMenu() {
     console.log(`
@@ -33,7 +35,8 @@ ${logo}
   2 - FILMES: ${filmesQtd}
   3 - INGRESSOS:
   4 - SALAS:
-  5 - SESSÕES:\n
+  5 - SESSÕES:
+
 CRIADO POR:
   ALANA 
   LUIZ 
@@ -95,6 +98,7 @@ PROFESSOR: HOWARD ROATTI\n
 
     switch (opt) {
       case 1:
+        await this.clienteController.inserir();
         break;
       case 2:
         await this.filmeController.inserir();
