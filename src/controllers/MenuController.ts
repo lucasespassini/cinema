@@ -1,3 +1,4 @@
+import { ClienteModel } from "../models/ClienteModel";
 import { FilmeModel } from "../models/FilmeModel";
 import { IngressoModel } from "../models/IngressoModel";
 import { logo } from "../utils/menu";
@@ -30,6 +31,7 @@ ${logo}
   }
 
   async splashScreen() {
+    const clientesQtd = await ClienteModel.count();
     const filmesQtd = await this.filmeModel.count();
     const ingressosQtd = await this.ingressoModel.count();
 
@@ -38,7 +40,7 @@ ${logo}
 \nSISTEMA DE GERENCIAMENTO DE BILHETERIA DE CINEMA
 \nTOTAL DE REGISTROS EXISTENTES:
 
-  1 - CLIENTES:
+  1 - CLIENTES: ${clientesQtd}
   2 - FILMES: ${filmesQtd}
   3 - INGRESSOS: ${ingressosQtd}
   4 - SALAS:
