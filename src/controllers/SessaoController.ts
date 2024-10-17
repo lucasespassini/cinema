@@ -1,6 +1,7 @@
 import { SessaoModel } from "../models/SessaoModel";
 import { scan } from "../utils/scan";
 
+
 export class SessaoController {
   async inserir() {
     const filme_id = +scan("Id do filme: ");
@@ -16,12 +17,10 @@ export class SessaoController {
 
   async listar() {
     await SessaoModel.read();
-    scan("Clique enter para continuar>>>");
+    scan("Aperte a tecla Enter para continuar >>>");
   }
 
-  async atualizar() {
-    
-  }
+  async atualizar() {}
 
   async excluir() {}
 }

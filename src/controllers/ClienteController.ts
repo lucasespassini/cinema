@@ -19,7 +19,11 @@ export class ClienteController {
     await ClienteModel.create(novoCliente);
   }
 
-  async listar() {}
+  async listar() {
+    const cliente = await ClienteModel.read();
+    console.table(cliente);
+    scan("Aperte a tecla Enter para continuar >>>");
+  }
 
   async excluir() {
     const cpf = scan("Digite o CPF para excluir: ");

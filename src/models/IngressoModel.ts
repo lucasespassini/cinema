@@ -25,7 +25,8 @@ export class IngressoModel implements IngressoModelProps {
 
   static async read() {
     const sql = "SELECT * FROM ingressos;";
-    return await executeQuery(sql);
+    const ingressos = await executeQuery(sql);
+    return ingressos;
   }
 
   static async count() {
