@@ -20,7 +20,7 @@ const main = async () => {
 
     if (opt === 5) {
       disconnectDb();
-      console.log("Saindo...");
+      console.log("\nSaindo...\n");
       break;
     }
 
