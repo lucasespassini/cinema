@@ -13,8 +13,9 @@ export class FilmeController {
   }
 
   async listar() {
-    await FilmeModel.read();
-    scan("Clique enter para continuar>>>");
+    const result = await FilmeModel.read();
+    console.table(result);
+    scan("Aperte a tecla Enter para continuar >>>");
   }
 
   async atualizar() {
@@ -28,5 +29,7 @@ export class FilmeController {
     await FilmeModel.update(filmeAtualizado);
   }
 
-  async excluir() {}
+  async excluir() {
+    
+  }
 }

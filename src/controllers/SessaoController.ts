@@ -19,7 +19,9 @@ export class SessaoController {
     scan("Clique enter para continuar>>>");
   }
 
-  async atualizar() {}
+  async atualizar() {
+    
+  }
 
   async excluir() {}
 }
