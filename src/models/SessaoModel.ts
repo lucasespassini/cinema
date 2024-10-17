@@ -1,4 +1,5 @@
 import { executeQuery } from "../database/connection";
+import * as dfd from "danfojs-node";
 
 type SessaoModelProps = {
   id?: number;
@@ -23,8 +24,21 @@ export class SessaoModel implements SessaoModelProps {
   }
 
   static async read() {
-    const sql = "SELECT * FROM sessoes";
+    const sql = `SELECT
+                    sessoes.id,
+                    filmes.titulo AS nome_filme,
+                    salas.nome AS nome_sala,
+                    sessoes.horario_inicio
+                  FROM
+                    sessoes
+                  JOIN
+                    filmes ON sessoes.filme_id = filmes.id
+                  JOIN
+                    salas ON sessoes.sala_id = salas.id;`;
     const sessoes = await executeQuery(sql);
-    return console.table(sessoes);
+    const df = new dfd.DataFrame(sessoes);
+    df.setIndex({ column: "id", drop: true, inplace: true });
+    df.print();
+    return df;
   }
 }

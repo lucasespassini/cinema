@@ -1,4 +1,5 @@
 import { executeQuery } from "../database/connection";
+import * as dfd from "danfojs-node";
 
 type FilmeModelProps = {
   id?: number;
@@ -26,7 +27,10 @@ export class FilmeModel implements FilmeModelProps {
   static async read() {
     const sql = "SELECT * FROM filmes;";
     const filmes = await executeQuery<FilmeModel[]>(sql);
-    return console.table(filmes);
+    const df = new dfd.DataFrame(filmes);
+    df.setIndex({ column: "id", drop: true, inplace: true });
+    df.print();
+    return df;
   }
 
   static async count() {

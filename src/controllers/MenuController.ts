@@ -127,7 +127,13 @@ PROFESSOR: HOWARD ROATTI\n
         //TODO: Criar o menu do ingresso para mostrar a tabela de sessões e poltronas para usuário escolher;
         break;
       case 4:
-        await this.sessaoController.inserir();
+        if (acao === "CRIAR") {
+          await this.sessaoController.inserir();
+        } else if (acao === "DELETAR") {
+          await this.sessaoController.excluir();
+        } else if (acao === "ATUALIZAR") {
+          await this.sessaoController.atualizar()
+        }
         break;
       case 5:
         break;
