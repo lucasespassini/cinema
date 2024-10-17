@@ -11,8 +11,6 @@ import { SessaoController } from "./SessaoController";
 export class MenuController {
   private readonly filmeController = new FilmeController();
   private readonly clienteController = new ClienteController();
-  private readonly filmeModel = new FilmeModel();
-  private readonly ingressoModel = new IngressoModel();
   private readonly ingressoController = new IngressoController();
   private readonly sessaoController = new SessaoController();
 
@@ -32,8 +30,8 @@ ${logo}
 
   async splashScreen() {
     const clientesQtd = await ClienteModel.count();
-    const filmesQtd = await this.filmeModel.count();
-    const ingressosQtd = await this.ingressoModel.count();
+    const filmesQtd = await FilmeModel.count();
+    const ingressosQtd = await IngressoModel.count();
 
     console.log(`
 ======================================================================================================

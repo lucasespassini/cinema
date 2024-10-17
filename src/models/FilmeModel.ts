@@ -1,34 +1,50 @@
 import { executeQuery } from "../database/connection";
 
-export class FilmeModel {
-  async create(titulo: string, duracao: number, genero: string) {
-    const sql = `INSERT INTO filmes (titulo, duracao, genero) VALUES ("${titulo}", ${duracao}, "${genero}");`;
+type FilmeModelProps = {
+  id?: number;
+  titulo: string;
+  duracao: number;
+  genero: string;
+};
+
+export class FilmeModel implements FilmeModelProps {
+  id?: number;
+  titulo: string;
+  duracao: number;
+  genero: string;
+
+  constructor(props: FilmeModelProps) {
+    Object.assign(this, props);
+  }
+
+  static async create(filme: Omit<FilmeModel, "id">) {
+    const sql = `INSERT INTO filmes (titulo, duracao, genero) VALUES ("${filme.titulo}", ${filme.duracao}, "${filme.genero}");`;
     await executeQuery(sql);
     console.log("Filme cadastrado com sucesso!");
   }
 
-  async read() {
+  static async read() {
     const sql = "SELECT * FROM filmes;";
-    return await executeQuery(sql);
+    return await executeQuery<FilmeModel[]>(sql);
   }
 
-  async count() {
+  static async count() {
     const sql = "SELECT COUNT(*) AS filmesQtd FROM filmes;";
     const filmesQtd = await executeQuery<{ filmesQtd: number }[]>(sql);
     return filmesQtd[0].filmesQtd;
   }
 
-  async update(titulo: string, duracao: string, genero: string, id: number) {
+  static async update(filme: FilmeModel) {
     const sql = `
     UPDATE filmes
-    SET titulo = '${titulo}',
-        duracao = '${duracao}',
-        genero = '${genero}'
-    WHERE id = ${id}; 
+    SET titulo = '${filme.titulo}',
+        duracao = '${filme.duracao}',
+        genero = '${filme.genero}'
+    WHERE id = ${filme.id}; 
 `;
     await executeQuery(sql);
     console.log("\nFilme atualizado com sucesso!\n");
   }
 
-  delete() {}
+  static delete() {}
 }
