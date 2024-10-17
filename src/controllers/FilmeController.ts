@@ -13,8 +13,7 @@ export class FilmeController {
   }
 
   async listar() {
-    const result = await FilmeModel.read();
-    console.table(result);
+    await FilmeModel.read();
     scan("Clique enter para continuar>>>");
   }
 

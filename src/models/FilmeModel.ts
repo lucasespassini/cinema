@@ -25,7 +25,8 @@ export class FilmeModel implements FilmeModelProps {
 
   static async read() {
     const sql = "SELECT * FROM filmes;";
-    return await executeQuery<FilmeModel[]>(sql);
+    const filmes = await executeQuery<FilmeModel[]>(sql);
+    return console.table(filmes);
   }
 
   static async count() {
