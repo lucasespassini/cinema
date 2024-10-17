@@ -27,7 +27,7 @@ export class FilmeModel {
     WHERE id = ${id}; 
 `;
     await executeQuery(sql);
-    console.log("Filme atualizado com sucesso!");
+    console.log("\nFilme atualizado com sucesso!\n");
   }
 
   delete() {}
