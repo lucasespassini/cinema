@@ -1,11 +1,15 @@
 import { FilmeModel } from "../models/FilmeModel";
+import { IngressoModel } from "../models/IngressoModel";
 import { logo } from "../utils/menu";
 import { scan } from "../utils/scan";
 import { FilmeController } from "./FilmeController";
+import { IngressoController } from "./IngressoController";
 
 export class MenuController {
   private readonly filmeModel = new FilmeModel();
   private readonly filmeController = new FilmeController();
+  private readonly ingressoModel = new IngressoModel();
+  private readonly ingressoController = new IngressoController();
 
   mostrarMenu() {
     console.log(`
@@ -23,6 +27,7 @@ ${logo}
 
   async splashScreen() {
     const filmesQtd = await this.filmeModel.count();
+    const ingressosQtd = await this.ingressoModel.count();
 
     console.log(`
 ======================================================================================================
@@ -31,7 +36,7 @@ ${logo}
 
   1 - CLIENTES:
   2 - FILMES: ${filmesQtd}
-  3 - INGRESSOS:
+  3 - INGRESSOS: ${ingressosQtd}
   4 - SALAS:
   5 - SESSÕES:\n
 CRIADO POR:
@@ -57,10 +62,12 @@ PROFESSOR: HOWARD ROATTI\n
       case 3:
         this.menuRelatorio();
         break;
+      case 4:
+        break;
     }
   }
 
-  private menuRelatorio() {
+  private async menuRelatorio() {
     console.log(`
     1 - Ingressos Vendidos
     2 - Sessões Atuais
@@ -71,24 +78,23 @@ PROFESSOR: HOWARD ROATTI\n
 
     switch (opt) {
       case 1:
-        console.log("mostar relatorio Ingressos Vendidos");
         break;
       case 2:
-        console.log("mostar relatorio Sessões Atuais");
+        console.log("mostrar relatorio Sessões Atuais");
         break;
       case 3:
         break;
     }
   }
+  1;
 
   private async menuTabelas() {
     console.log(`
       1 - Cliente
       2 - Filme
       3 - Ingresso
-      4 - Salas
-      5 - Sessao
-      6 - Voltar 
+      4 - Sessao
+      5 - Voltar 
     `);
 
     const opt = +scan(">>> ");
@@ -100,12 +106,12 @@ PROFESSOR: HOWARD ROATTI\n
         await this.filmeController.inserir();
         break;
       case 3:
+        await this.ingressoController.inserir();
+        //TODO: Criar o menu do ingresso para mostrar a tabela de sessões e poltronas para usuário escolher;
         break;
       case 4:
         break;
       case 5:
-        break;
-      case 6:
         break;
     }
   }

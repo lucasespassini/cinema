@@ -14,8 +14,8 @@ export class FilmeModel {
 
   async count() {
     const sql = "SELECT COUNT(*) AS filmesQtd FROM filmes;";
-    const { filmesQtd } = await executeQuery<{ filmesQtd: number }>(sql);
-    return filmesQtd;
+    const filmesQtd = await executeQuery<{ filmesQtd: number }[]>(sql);
+    return filmesQtd[0].filmesQtd;
   }
 
   async update(titulo: string, duracao: string, genero: string, id: number) {
