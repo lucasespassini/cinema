@@ -14,10 +14,12 @@ export class SessaoController {
   }
 
   async listar() {
-    
+
   }
 
-  async atualizar() {}
+  async atualizar() {
+    
+  }
 
   async excluir() {}
 }
