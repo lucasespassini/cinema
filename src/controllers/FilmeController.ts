@@ -12,7 +12,11 @@ export class FilmeController {
     await this.filmeModel.create(titulo, +duracao, genero);
   }
 
-  async listar() {}
+  async listar() {
+    const result = await this.filmeModel.read();
+    console.table(result);
+    scan("Clique enter para continuar>>>");
+  }
 
   async atualizar() {
     const id = scan("Atualizar pelo Id do filme: ");

@@ -14,10 +14,9 @@ const connection = mysql.createConnection({
 export async function executeQuery<T = any>(sql: string): Promise<T> {
   const result = await new Promise((resolve, reject) => {
     connection.query(sql, (error, result) =>
-      error ? reject(error) : resolve(result?.[0])
+      error ? reject(error) : resolve(result)
     );
   });
-
   return result as T;
 }
 
