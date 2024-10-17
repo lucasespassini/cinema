@@ -4,12 +4,14 @@ import { logo } from "../utils/menu";
 import { scan } from "../utils/scan";
 import { FilmeController } from "./FilmeController";
 import { IngressoController } from "./IngressoController";
+import { SessaoController } from "./SessaoController";
 
 export class MenuController {
   private readonly filmeModel = new FilmeModel();
   private readonly filmeController = new FilmeController();
   private readonly ingressoModel = new IngressoModel();
   private readonly ingressoController = new IngressoController();
+  private readonly sessaoController = new SessaoController();
 
   mostrarMenu() {
     console.log(`
@@ -110,6 +112,7 @@ PROFESSOR: HOWARD ROATTI\n
         //TODO: Criar o menu do ingresso para mostrar a tabela de sessões e poltronas para usuário escolher;
         break;
       case 4:
+        await this.sessaoController.inserir();
         break;
       case 5:
         break;
