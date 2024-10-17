@@ -92,7 +92,6 @@ PROFESSOR: HOWARD ROATTI\n
         break;
     }
   }
-  1;
 
   private async menuTabelas(acao: "CRIAR" | "ATUALIZAR" | "DELETAR") {
     console.log(`
@@ -117,6 +116,7 @@ PROFESSOR: HOWARD ROATTI\n
         if (acao === "CRIAR") {
           await this.filmeController.inserir();
         } else if (acao === "DELETAR") {
+          
           await this.filmeController.excluir();
         } else if (acao === "ATUALIZAR") {
           await this.filmeController.atualizar();

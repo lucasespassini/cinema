@@ -47,5 +47,10 @@ export class FilmeModel implements FilmeModelProps {
     console.log("\nFilme atualizado com sucesso!\n");
   }
 
-  static delete() {}
+  static async delete() {
+    
+    const sql = `DELETE FROM filmes WHERE id = ?`;
+    await executeQuery(sql);
+    console.log("Filme removido com sucesso");
+  }
 }
